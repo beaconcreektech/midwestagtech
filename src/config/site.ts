@@ -1,17 +1,26 @@
 export const site = {
-  name: "Midwest Ag Tech",
-  shortName: "MIDWEST AG TECH",
-  tagline: "PRECISION · PERFORMANCE · PARTNERSHIP",
+  name: "Midwest Ag Technologies",
+  legalName: "Midwest Ag Technologies, LLC",
+  tagline: "New technology. Practical solutions. Local support.",
+  headline: "Technology Built for Today's Agriculture.",
   description:
-    "Precision ag technology for Midwest operations — drones, autonomous equipment, and local support.",
-  location: "Lincoln, NE",
-  // Confirmed contact only. Leave blank until the client signs off.
-  phone: "",
-  email: "",
-  address: "",
+    "At Midwest Ag Technologies, we help farmers and ag businesses adopt new technology with confidence. From agricultural drones and robotics to service, parts, and training, we provide practical solutions built for real-world operations.",
+  location: "Creighton, NE",
+  logo: "/logo.png",
+  people: [
+    { name: "Brady Wortman", phone: "402-360-3371", tel: "tel:+14023603371" },
+    { name: "Tate Thoene", phone: "402-841-4458", tel: "tel:+14028414458" },
+  ],
+  services: [
+    "Agricultural Drone Sales",
+    "Agricultural Robotics",
+    "Parts & Accessories",
+    "Service & Repair",
+    "Equipment Training",
+    "Emerging Ag Technology",
+  ],
   nav: [
     { href: "/products", label: "Products" },
-    { href: "/brands", label: "Brands" },
     { href: "/solutions", label: "Solutions" },
     { href: "/support", label: "Support" },
     { href: "/about", label: "About Us" },

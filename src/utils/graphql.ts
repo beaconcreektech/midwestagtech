@@ -55,6 +55,7 @@ fragment productFragment on Product {
   handle
   vendor
   description
+  productType
   images (first: 10) {
     nodes {
       url
@@ -84,8 +85,12 @@ fragment productFragment on Product {
 `;
 
 export const ProductsQuery = `#graphql
-query ($first: Int!) {
-    products(first: $first) {
+query ($first: Int!, $after: String) {
+    products(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       edges {
         node {
           ...productFragment
@@ -94,6 +99,51 @@ query ($first: Int!) {
     }
   }
   ${PRODUCT_FRAGMENT}
+`;
+
+const LISTING_PRODUCT_FRAGMENT = `#graphql
+fragment listingProductFragment on Product {
+  id
+  title
+  handle
+  vendor
+  description
+  productType
+  variants(first: 1) {
+    nodes {
+      id
+      title
+      availableForSale
+      price {
+        amount
+        currencyCode
+      }
+    }
+  }
+  featuredImage {
+    url
+    width
+    height
+    altText
+  }
+}
+`;
+
+export const AllProductsQuery = `#graphql
+query ($first: Int!, $after: String) {
+  products(first: $first, after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        ...listingProductFragment
+      }
+    }
+  }
+}
+${LISTING_PRODUCT_FRAGMENT}
 `;
 
 export const ProductByHandleQuery = `#graphql

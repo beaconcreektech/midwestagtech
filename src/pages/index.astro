@@ -12,163 +12,106 @@ const featured = products.filter(Boolean).slice(0, 4);
 
 setCache.short(Astro);
 
-const benefits = [
+const pillars = [
   {
-    title: "True Local Support",
-    body: "Nebraska-owned and operated. When something needs attention, you talk to people who know your fields — not a call center three time zones away.",
-    icon: "shield",
+    title: "New technology",
+    body: "Agricultural drones, robotics, and emerging tools that fit how Midwest operations actually run.",
   },
   {
-    title: "Training Included",
-    body: "Every purchase includes hands-on training so your team can get value from day one — spraying, scouting, or autonomous runs.",
-    icon: "tool",
+    title: "Practical solutions",
+    body: "We focus on technology that works in the field — not gadgets that look good on paper.",
   },
   {
-    title: "Fast Turnaround",
-    body: "Parts, demos, and service scheduled around the season. We move at farm speed — because timing is everything in agriculture.",
-    icon: "clock",
+    title: "Local support",
+    body: "Sales, parts, service, and training from people you can call. When you need help, you talk to us.",
   },
 ];
 ---
 
 <BaseLayout title={site.name} description={site.description}>
-  <header class="relative flex min-h-[620px] items-center overflow-hidden bg-linear-to-br from-[#0a2f22] via-forest-800 to-forest-700">
-    <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_40%,rgba(46,204,113,0.25),transparent_60%),radial-gradient(ellipse_50%_40%_at_20%_80%,rgba(244,196,48,0.15),transparent_50%)]"
-    >
-    </div>
-    <div
-      class="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[48px_48px]"
-    >
-    </div>
-
-    <div class="relative z-10 container grid items-center gap-12 py-16 lg:grid-cols-2">
+  <header class="relative overflow-hidden bg-forest-900">
+    <div class="relative z-10 container grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-20">
       <div>
-        <div
-          class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/12 px-3.5 py-1.5 text-sm font-semibold text-gold-300 backdrop-blur-sm"
-        >
-          <span class="h-2 w-2 rounded-full bg-gold-400 shadow-[0_0_8px_#ffd54f]"></span>
-          Authorized Dealer · Nebraska Owned
-        </div>
-        <h1 class="mb-5 text-4xl leading-[1.12] font-extrabold tracking-tight text-white md:text-5xl">
-          Precision Ag Technology<br />
-          for the <span class="bg-linear-to-r from-gold-400 to-gold-300 bg-clip-text text-transparent">Midwest</span>
-        </h1>
-        <p class="mb-8 max-w-md text-lg leading-relaxed text-white/80">
-          Power your operation with agricultural drones, autonomous robots, and scouting platforms — built for Nebraska fields and backed by local expertise.
+        <p class="mb-4 text-sm font-bold tracking-[0.12em] text-gold-400 uppercase">
+          {site.tagline}
         </p>
-        <div class="mb-10 flex flex-wrap gap-3">
-          <a href="/products" class="btn btn-primary">
-            Shop Now
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
-          <a href="/support#demo" class="btn btn-secondary">Request Demo</a>
+        <h1 class="mb-5 text-4xl leading-[1.12] font-extrabold tracking-tight text-white md:text-5xl">
+          {site.headline}
+        </h1>
+        <p class="mb-4 max-w-xl text-lg leading-relaxed text-white/85">
+          At Midwest Ag Technologies, we help farmers and ag businesses adopt new technology with confidence.
+        </p>
+        <p class="mb-8 max-w-xl leading-relaxed text-white/75">
+          From agricultural drones and robotics to service, parts, and training, we provide practical solutions built
+          for real-world operations.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/support#talk" class="btn btn-primary">Let's Talk Ag Tech</a>
+          <a href="/products" class="btn btn-secondary">Shop equipment</a>
         </div>
-        <p class="text-sm text-white/70">Local support across Nebraska · Training with every purchase</p>
       </div>
 
-      <div class="flex justify-center">
-        <div
-          class="relative aspect-4/3 w-full max-w-[480px] overflow-hidden rounded-[20px] border border-white/15 bg-linear-to-br from-white/8 to-white/2 shadow-xl backdrop-blur-sm"
-        >
-          <div class="absolute inset-0 grid place-items-center bg-[radial-gradient(circle_at_50%_40%,rgba(46,204,113,0.15),transparent_70%)]">
-            <div
-              class="grid h-44 w-44 animate-float place-items-center rounded-3xl bg-linear-to-br from-[#2a2a2a] to-[#1a1a1a] shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
-            >
-              <svg class="h-24 w-24 text-neutral-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-                <path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-                <path d="M12 8V4M12 16v4M8 12H4M16 12h4"></path>
-                <path d="M6.5 6.5L4 4M17.5 6.5L20 4M6.5 17.5L4 20M17.5 17.5L20 20"></path>
-                <circle cx="4" cy="4" r="1.5" fill="currentColor"></circle>
-                <circle cx="20" cy="4" r="1.5" fill="currentColor"></circle>
-                <circle cx="4" cy="20" r="1.5" fill="currentColor"></circle>
-                <circle cx="20" cy="20" r="1.5" fill="currentColor"></circle>
-              </svg>
-            </div>
-          </div>
-          <div
-            class="absolute bottom-5 left-5 flex items-center gap-2 rounded-full border border-forest-500/30 bg-forest-900/85 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-sm"
-          >
-            <span class="h-1.5 w-1.5 animate-pulse-dot rounded-full bg-forest-500"></span>
-            Live · RTK Ready
-          </div>
-        </div>
+      <div class="relative">
+        <img
+          src="/hero-drone.jpg"
+          alt="Agricultural spray drone on a trailer overlooking Midwest fields"
+          class="aspect-4/3 w-full rounded-[20px] object-cover shadow-xl"
+          width="360"
+          height="365"
+        />
+        <img
+          src="/hero-flight.jpg"
+          alt="Agricultural spray drone in flight"
+          class="absolute -bottom-6 -left-4 hidden w-36 rounded-2xl border-4 border-forest-900 object-cover shadow-lg sm:block md:w-44"
+          width="175"
+          height="190"
+        />
       </div>
     </div>
   </header>
 
-  <div class="bg-forest-900 text-white/85">
-    <div class="container flex flex-wrap items-center justify-between gap-6 py-4 text-sm font-medium">
-      <span class="flex items-center gap-2">
-        <svg class="h-[18px] w-[18px] shrink-0 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-        Authorized Dealer — DJI · Yarbo · Greenfield
-      </span>
-      <span class="flex items-center gap-2">
-        <svg class="h-[18px] w-[18px] shrink-0 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"></path>
-        </svg>
-        Expert Nebraska-based support
-      </span>
-      <span class="flex items-center gap-2">
-        <svg class="h-[18px] w-[18px] shrink-0 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="1" y="3" width="15" height="13"></rect>
-          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-          <circle cx="5.5" cy="18.5" r="2.5"></circle>
-          <circle cx="18.5" cy="18.5" r="2.5"></circle>
-        </svg>
-        Fast local delivery statewide
-      </span>
-      <span class="flex items-center gap-2">
-        <svg class="h-[18px] w-[18px] shrink-0 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-        Certified training included
-      </span>
+  <div class="bg-forest-800 text-white/90">
+    <div class="container py-5">
+      <p class="mb-4 text-center text-xs font-bold tracking-[0.14em] text-gold-400 uppercase">
+        Ag technology + support
+      </p>
+      <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium">
+        {
+          site.services.map((service) => (
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              {service}
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </div>
 
-  <Products products={featured} />
+  <Products
+    products={featured}
+    label="Catalog"
+    heading="Equipment, parts, and accessories"
+    intro="Live inventory from the shop. Browse drones, trailers, accessories, and service parts."
+  />
 
-  <section class="bg-gray-100">
+  <section class="bg-forest-100">
     <div class="container py-20">
       <div class="mb-12 text-center">
-        <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Why Midwest Ag Tech</p>
-        <h2 class="mb-3 text-3xl font-extrabold tracking-tight">More Than Just Equipment</h2>
-        <p class="mx-auto max-w-xl text-gray-500">
-          Local knowledge, real support, and technology that actually works in Nebraska conditions.
+        <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Why Midwest Ag Technologies</p>
+        <h2 class="mb-3 text-3xl font-extrabold tracking-tight">{site.tagline}</h2>
+        <p class="mx-auto max-w-2xl text-gray-600">
+          Agriculture is evolving — and so is the technology behind it. We help you keep up without the guesswork.
         </p>
       </div>
       <div class="grid gap-8 md:grid-cols-3">
         {
-          benefits.map((benefit) => (
+          pillars.map((pillar) => (
             <div class="rounded-[20px] border border-gray-200 bg-white p-8">
-              <div class="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-forest-100 text-forest-700">
-                {benefit.icon === "shield" && (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                  </svg>
-                )}
-                {benefit.icon === "tool" && (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"></path>
-                  </svg>
-                )}
-                {benefit.icon === "clock" && (
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                )}
-              </div>
-              <h3 class="mb-2 text-lg font-bold">{benefit.title}</h3>
-              <p class="text-[0.925rem] leading-relaxed text-gray-500">{benefit.body}</p>
+              <h3 class="mb-2 text-lg font-bold text-forest-800">{pillar.title}</h3>
+              <p class="text-[0.925rem] leading-relaxed text-gray-600">{pillar.body}</p>
             </div>
           ))
         }
@@ -176,17 +119,21 @@ const benefits = [
     </div>
   </section>
 
-  <section class="relative overflow-hidden bg-linear-to-br from-forest-800 to-forest-900 px-8 py-16 text-center text-white">
-    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(244,196,48,0.15),transparent_60%)]">
-    </div>
+  <section id="talk" class="relative overflow-hidden bg-forest-900 px-8 py-16 text-center text-white">
     <div class="relative mx-auto max-w-2xl">
-      <h2 class="mb-3 text-3xl font-extrabold tracking-tight">Ready to upgrade your operation?</h2>
-      <p class="mb-7 text-lg text-white/80">
-        Talk with a specialist who understands Midwest farming. Get a recommendation or schedule a live demo on your ground.
+      <h2 class="mb-3 text-3xl font-extrabold tracking-tight">Let's Talk Ag Tech</h2>
+      <p class="mb-8 text-lg text-white/80">
+        Whether you're exploring drones, robotics, or simply looking for better support, we're here to help.
       </p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <a href="/support" class="btn btn-primary">Talk to a Specialist</a>
-        <a href="/products" class="btn btn-secondary">View All Products</a>
+      <div class="flex flex-wrap justify-center gap-4">
+        {
+          site.people.map((person) => (
+            <a href={person.tel} class="btn btn-primary min-w-[220px] flex-col !gap-0 py-4">
+              <span>{person.name}</span>
+              <span class="text-sm font-medium opacity-90">{person.phone}</span>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>

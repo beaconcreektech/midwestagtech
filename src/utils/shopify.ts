@@ -9,7 +9,13 @@ import {
   GetCartQuery,
   RemoveCartLinesMutation,
   ProductRecommendationsQuery,
+  AllProductsQuery,
 } from "./graphql";
+import {
+  catalogCategories,
+  categorySlugForType,
+  type CatalogSlug,
+} from "../config/catalog";
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
 const makeShopifyRequest = async (
@@ -92,6 +98,88 @@ export const getProducts = async (options: {
     console.error("Shopify getProducts failed:", error);
     return [];
   }
+};
+
+type ListedProduct = NonNullable<z.infer<typeof ProductResult>>;
+
+let catalogCache: { expires: number; products: ListedProduct[] } | null = null;
+const CATALOG_TTL_MS = 60_000;
+
+export const getAllProducts = async (options: { buyerIP: string }) => {
+  const { buyerIP } = options;
+  if (catalogCache && catalogCache.expires > Date.now()) {
+    return catalogCache.products;
+  }
+
+  const ProductsList = z.array(ProductResult);
+  const collected: ListedProduct[] = [];
+  let after: string | null = null;
+  let hasNextPage = true;
+
+  try {
+    while (hasNextPage) {
+      const data = await makeShopifyRequest(
+        AllProductsQuery,
+        { first: 100, after },
+        buyerIP
+      );
+      const connection = data.products;
+      if (!connection?.edges) break;
+
+      const page = ProductsList.parse(
+        connection.edges.map((edge: { node: unknown }) => edge.node)
+      ).filter((product): product is ListedProduct => Boolean(product));
+      collected.push(...page);
+
+      hasNextPage = Boolean(connection.pageInfo?.hasNextPage);
+      after = connection.pageInfo?.endCursor ?? null;
+    }
+
+    catalogCache = { expires: Date.now() + CATALOG_TTL_MS, products: collected };
+    return collected;
+  } catch (error) {
+    console.error("Shopify getAllProducts failed:", error);
+    return collected.length ? collected : [];
+  }
+};
+
+export const getCatalogGroups = async (options: { buyerIP: string }) => {
+  const products = await getAllProducts(options);
+  const groups = Object.fromEntries(
+    catalogCategories.map((category) => [category.slug, [] as ListedProduct[]])
+  ) as Record<CatalogSlug, ListedProduct[]>;
+
+  for (const product of products) {
+    groups[categorySlugForType(product.productType)].push(product);
+  }
+
+  return groups;
+};
+
+export const PAGE_SIZE = 24;
+
+export const getCategoryPage = async (options: {
+  slug: CatalogSlug;
+  buyerIP: string;
+  page?: number;
+  pageSize?: number;
+}) => {
+  const pageSize = options.pageSize ?? PAGE_SIZE;
+  const page = Math.max(1, options.page ?? 1);
+  const groups = await getCatalogGroups({ buyerIP: options.buyerIP });
+  const items = groups[options.slug] ?? [];
+  const total = items.length;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const safePage = Math.min(page, totalPages);
+  const start = (safePage - 1) * pageSize;
+
+  return {
+    items: items.slice(start, start + pageSize),
+    total,
+    page: safePage,
+    totalPages,
+    pageSize,
+  };
 };
 
 // Get a product by its handle (slug)

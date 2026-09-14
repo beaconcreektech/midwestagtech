@@ -1,12 +1,24 @@
 ---
 import InnerLayout from "../layouts/InnerLayout.astro";
+import { site } from "../config/site";
 ---
 
 <InnerLayout
   title="Solutions"
-  intro="Spraying, scouting, and autonomous field work — structured around how Midwest operations actually run."
+  intro="Ag technology + support for farmers and ag businesses throughout the Midwest."
 >
-  <p class="max-w-2xl text-gray-600">
-    Solution pages will map products and services to jobs (spray, scout, mow). Placeholder until we have the official lineup.
+  <ul class="grid gap-4 sm:grid-cols-2">
+    {
+      site.services.map((service) => (
+        <li class="rounded-2xl border bg-white px-6 py-8">
+          <p class="font-bold text-forest-800">{service}</p>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="mt-10 max-w-2xl text-gray-600">
+    Browse live inventory in the <a href="/products" class="font-semibold text-forest-700 underline">product catalog</a>,
+    or <a href="/support#talk" class="font-semibold text-forest-700 underline">call us</a> to talk through what fits
+    your operation.
   </p>
 </InnerLayout>

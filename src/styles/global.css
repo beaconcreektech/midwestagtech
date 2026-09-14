@@ -3,16 +3,17 @@
 @theme {
   --font-sans: Inter, system-ui, -apple-system, sans-serif;
 
-  --color-forest-900: #0f3d2e;
-  --color-forest-800: #145c3f;
-  --color-forest-700: #1a7a52;
-  --color-forest-600: #22a06b;
-  --color-forest-500: #2ecc71;
-  --color-forest-100: #e8f8f0;
+  /* From Midwest Ag Technologies logo */
+  --color-forest-900: #1c2e18;
+  --color-forest-800: #243c1c;
+  --color-forest-700: #305828;
+  --color-forest-600: #3d6e32;
+  --color-forest-500: #588048;
+  --color-forest-100: #e8f0e4;
 
-  --color-gold-500: #f4c430;
-  --color-gold-400: #ffd54f;
-  --color-gold-300: #ffe082;
+  --color-gold-500: #c08028;
+  --color-gold-400: #d4943a;
+  --color-gold-300: #e0b060;
 
   --animate-shake: shake 0.5s infinite;
   --animate-float: float 4s ease-in-out infinite;
@@ -121,7 +122,7 @@
 }
 
 @utility btn-primary {
-  @apply bg-gold-500 text-gray-900 shadow-[0_4px_14px_rgba(244,196,48,0.4)] hover:-translate-y-0.5 hover:bg-gold-400 hover:shadow-[0_6px_20px_rgba(244,196,48,0.5)];
+  @apply bg-gold-500 text-white shadow-[0_4px_14px_rgba(192,128,40,0.35)] hover:-translate-y-0.5 hover:bg-gold-400 hover:shadow-[0_6px_20px_rgba(192,128,40,0.45)];
 }
 
 @utility btn-secondary {

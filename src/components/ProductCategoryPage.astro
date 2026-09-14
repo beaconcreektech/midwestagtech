@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CatalogNav from "./CatalogNav.astro";
+import Products from "./Products.astro";
+import { getCategoryPage } from "../utils/shopify";
+import { getCatalogCategory, type CatalogSlug } from "../config/catalog";
+import { setCache } from "../utils/cache";
+
+interface Props {
+  slug: CatalogSlug;
+}
+
+const { slug } = Astro.props;
+const category = getCatalogCategory(slug);
+if (!category) {
+  throw new Error(`Unknown catalog category: ${slug}`);
+}
+
+const requestedPage = Number(Astro.url.searchParams.get("page") || "1");
+const headers = Astro.request.headers;
+const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
+const result = await getCategoryPage({
+  slug,
+  buyerIP: ip,
+  page: Number.isFinite(requestedPage) ? requestedPage : 1,
+});
+
+setCache.long(Astro);
+
+const emptyMessage =
+  slug === "drones"
+    ? "No drones listed yet. They’ll appear here when Shopify products are typed Drone or Drone Kit."
+    : slug === "trailers"
+      ? "No trailers listed yet. They’ll appear here when Shopify products are typed Trailer."
+      : "Nothing in this category yet.";
+---
+
+<BaseLayout title={category.label} description={category.intro}>
+  <section class="container pt-12 pb-4">
+    <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Catalog</p>
+    <h1 class="mb-3 text-4xl font-extrabold tracking-tight">{category.label}</h1>
+    <p class="mb-8 max-w-2xl text-gray-500">{category.intro}</p>
+    <CatalogNav current={slug} />
+    <p class="mt-6 text-sm text-gray-500">
+      {result.total === 0
+        ? "0 products"
+        : `Showing ${result.items.length} of ${result.total} · Page ${result.page} of ${result.totalPages}`}
+    </p>
+  </section>
+
+  <Products
+    compact
+    hideHeader
+    id={slug}
+    products={result.items}
+    emptyMessage={emptyMessage}
+  />
+
+  {
+    result.totalPages > 1 && (
+      <nav class="container flex justify-center gap-3 pb-16" aria-label="Pagination">
+        {result.page > 1 && (
+          <a
+            class="rounded-lg border px-4 py-2 text-sm font-semibold hover:bg-forest-100"
+            href={result.page === 2 ? `/products/${slug}` : `/products/${slug}?page=${result.page - 1}`}
+          >
+            Previous
+          </a>
+        )}
+        {result.page < result.totalPages && (
+          <a
+            class="rounded-lg border px-4 py-2 text-sm font-semibold hover:bg-forest-100"
+            href={`/products/${slug}?page=${result.page + 1}`}
+          >
+            Next
+          </a>
+        )}
+      </nav>
+    )
+  }
+</BaseLayout>

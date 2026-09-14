@@ -1,22 +1,46 @@
 ---
-import { getProducts } from "../../utils/shopify";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Products from "../../components/Products.astro";
+import CatalogNav from "../../components/CatalogNav.astro";
+import { getCatalogGroups } from "../../utils/shopify";
+import { catalogCategories } from "../../config/catalog";
 import { setCache } from "../../utils/cache";
 import { site } from "../../config/site";
 
 const headers = Astro.request.headers;
 const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
-const products = await getProducts({ buyerIP: ip, limit: 24 });
+const groups = await getCatalogGroups({ buyerIP: ip });
 
-setCache.short(Astro);
+setCache.long(Astro);
 ---
 
 <BaseLayout title="Products" description={`Shop precision ag equipment from ${site.name}.`}>
-  <Products
-    products={products}
-    label="Catalog"
-    heading="Shop Equipment"
-    intro="Live inventory from our Shopify catalog. Prices and availability come from the store."
-  />
+  <section class="container py-16">
+    <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Catalog</p>
+    <h1 class="mb-3 text-4xl font-extrabold tracking-tight">Shop Equipment</h1>
+    <p class="mb-8 max-w-2xl text-lg text-gray-500">
+      Agricultural drones, robotics, parts, and accessories — practical equipment for real-world operations.
+    </p>
+    <CatalogNav />
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      {
+        catalogCategories.map((category) => {
+          const count = groups[category.slug].length;
+          return (
+            <a
+              href={`/products/${category.slug}`}
+              class="rounded-[20px] border border-gray-200 bg-white p-8 transition hover:-translate-y-1 hover:border-forest-500 hover:shadow-lg"
+            >
+              <p class="text-sm font-bold tracking-wide text-forest-600 uppercase">{category.navLabel}</p>
+              <h2 class="mt-2 text-2xl font-extrabold tracking-tight">{category.label}</h2>
+              <p class="mt-2 text-gray-500">{category.intro}</p>
+              <p class="mt-6 text-sm font-semibold text-forest-800">
+                {count} {count === 1 ? "product" : "products"} →
+              </p>
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
 </BaseLayout>

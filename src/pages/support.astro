@@ -1,15 +1,41 @@
 ---
 import InnerLayout from "../layouts/InnerLayout.astro";
+import { site } from "../config/site";
 ---
 
 <InnerLayout
   title="Support"
-  intro="Training, parts, and service for the equipment we sell."
+  intro="Parts, service, repair, and equipment training — local support for the technology we sell."
 >
-  <div id="demo" class="scroll-mt-24 max-w-xl rounded-2xl border bg-gray-50 p-8">
-    <h2 class="mb-2 text-xl font-bold">Request a demo</h2>
-    <p class="text-gray-600">
-      Tell us what you’re running and we’ll schedule a walkthrough. A contact form lands here next — until then, use this page as the demo / specialist destination.
+  <ul class="mb-10 grid gap-3 sm:grid-cols-2">
+    {
+      ["Parts & Accessories", "Service & Repair", "Equipment Training"].map((item) => (
+        <li class="flex items-center gap-2 rounded-xl border bg-white px-4 py-3 font-medium text-forest-800">
+          <svg class="h-4 w-4 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          {item}
+        </li>
+      ))
+    }
+  </ul>
+
+  <div id="talk" class="scroll-mt-24 max-w-xl rounded-2xl border bg-forest-100 p-8">
+    <h2 class="mb-2 text-xl font-bold">Let's Talk Ag Tech</h2>
+    <p class="mb-6 text-gray-600">
+      Whether you're exploring drones, robotics, or simply looking for better support, we're here to help.
     </p>
+    <ul class="space-y-4">
+      {
+        site.people.map((person) => (
+          <li>
+            <p class="font-bold text-forest-800">{person.name}</p>
+            <a href={person.tel} class="font-semibold text-gold-500 hover:text-gold-400">
+              {person.phone}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </InnerLayout>

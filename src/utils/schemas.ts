@@ -69,9 +69,13 @@ export const ProductResult = z
     handle: z.string(),
     vendor: z.string().optional().default(""),
     description: z.string().nullable().optional().default(""),
-    images: z.object({
-      nodes: z.array(ImageResult),
-    }),
+    productType: z.string().nullable().optional().default(""),
+    images: z
+      .object({
+        nodes: z.array(ImageResult),
+      })
+      .optional()
+      .default({ nodes: [] }),
     variants: z.object({
       nodes: z.array(VariantResult),
     }),

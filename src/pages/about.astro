@@ -1,12 +1,32 @@
 ---
 import InnerLayout from "../layouts/InnerLayout.astro";
+import { site } from "../config/site";
 ---
 
-<InnerLayout
-  title="About Us"
-  intro="Nebraska-owned. Local support for precision ag equipment that actually has to work in Midwest conditions."
->
-  <p class="max-w-2xl text-gray-600">
-    Team, history, and photos will live on this page. For now, the shop and product catalog are the source of truth.
-  </p>
+<InnerLayout title="About Us" intro={site.headline}>
+  <div class="max-w-2xl space-y-5 text-gray-600">
+    <p>
+      At Midwest Ag Technologies, we help farmers and ag businesses adopt new technology with confidence. From
+      agricultural drones and robotics to service, parts, and training, we provide practical solutions built for
+      real-world operations.
+    </p>
+    <p>
+      Agriculture is evolving — and so is the technology behind it. Our goal is simple: help you stay ahead with
+      equipment, support, and expertise you can trust.
+    </p>
+    <p class="font-semibold text-forest-800">{site.tagline}</p>
+  </div>
+
+  <div class="mt-12 grid gap-6 sm:grid-cols-2">
+    {
+      site.people.map((person) => (
+        <div class="rounded-2xl border bg-forest-100 p-6">
+          <p class="text-lg font-bold text-forest-800">{person.name}</p>
+          <a href={person.tel} class="mt-1 inline-block font-semibold text-gold-500 hover:text-gold-400">
+            {person.phone}
+          </a>
+        </div>
+      ))
+    }
+  </div>
 </InnerLayout>
