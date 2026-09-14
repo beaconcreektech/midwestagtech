@@ -58,7 +58,7 @@ export const VariantResult = z.object({
   id: z.string(),
   title: z.string(),
   availableForSale: z.boolean(),
-  quantityAvailable: z.number().int(),
+  quantityAvailable: z.number().int().nullable().optional(),
   price: MoneyV2Result,
 });
 
@@ -67,6 +67,8 @@ export const ProductResult = z
     id: z.string(),
     title: z.string(),
     handle: z.string(),
+    vendor: z.string().optional().default(""),
+    description: z.string().nullable().optional().default(""),
     images: z.object({
       nodes: z.array(ImageResult),
     }),

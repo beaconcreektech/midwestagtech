@@ -1,8 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  /* Animation */
+  --font-sans: Inter, system-ui, -apple-system, sans-serif;
+
+  --color-forest-900: #0f3d2e;
+  --color-forest-800: #145c3f;
+  --color-forest-700: #1a7a52;
+  --color-forest-600: #22a06b;
+  --color-forest-500: #2ecc71;
+  --color-forest-100: #e8f8f0;
+
+  --color-gold-500: #f4c430;
+  --color-gold-400: #ffd54f;
+  --color-gold-300: #ffe082;
+
   --animate-shake: shake 0.5s infinite;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-pulse-dot: pulse-dot 1.5s ease-in-out infinite;
 
   @keyframes shake {
     0% {
@@ -39,11 +53,32 @@
       transform: translate(1px, -2px) rotate(-1deg);
     }
   }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
 }
 
 @utility container {
   margin-inline: auto;
   padding-inline: 1.5rem;
+  max-width: 80rem;
 }
 
 @layer base {
@@ -52,7 +87,7 @@
   }
 
   body {
-    @apply flex min-h-screen flex-col;
+    @apply flex min-h-screen flex-col bg-white font-sans text-gray-900 antialiased;
   }
 
   main {
@@ -73,11 +108,26 @@
   }
 
   .button {
-    @apply flex items-center justify-center rounded-lg;
-    @apply bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-600;
-    @apply px-8 py-3 text-base font-medium text-white;
-    @apply transition hover:opacity-80;
-    @apply focus:ring-2 focus:ring-black focus:ring-offset-1 focus:outline-none;
+    @apply flex items-center justify-center rounded-[10px];
+    @apply bg-forest-700 px-8 py-3 text-base font-semibold text-white;
+    @apply transition hover:bg-forest-800;
+    @apply focus:ring-2 focus:ring-forest-700 focus:ring-offset-1 focus:outline-none;
     @apply disabled:cursor-not-allowed disabled:opacity-60;
   }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-[10px] px-6 py-3.5 text-[0.95rem] font-semibold transition;
+}
+
+@utility btn-primary {
+  @apply bg-gold-500 text-gray-900 shadow-[0_4px_14px_rgba(244,196,48,0.4)] hover:-translate-y-0.5 hover:bg-gold-400 hover:shadow-[0_6px_20px_rgba(244,196,48,0.5)];
+}
+
+@utility btn-secondary {
+  @apply border border-white/25 bg-white/12 text-white backdrop-blur-sm hover:border-white/40 hover:bg-white/20;
+}
+
+@utility btn-ghost {
+  @apply border border-forest-700/20 bg-white text-forest-800 hover:bg-forest-100;
 }

@@ -1,0 +1,16 @@
+---
+import InnerLayout from "../layouts/InnerLayout.astro";
+---
+
+<InnerLayout
+  title="Brands"
+  intro="Authorized lines we sell and support. Logos and official dealer copy come later."
+>
+  <ul class="grid gap-4 sm:grid-cols-3">
+    {["DJI Agriculture", "Yarbo", "Greenfield Robotics"].map((brand) => (
+      <li class="rounded-2xl border bg-gray-50 px-6 py-10 text-center font-semibold text-forest-800">
+        {brand}
+      </li>
+    ))}
+  </ul>
+</InnerLayout>

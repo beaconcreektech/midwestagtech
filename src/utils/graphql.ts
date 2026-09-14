@@ -53,6 +53,8 @@ fragment productFragment on Product {
   id
   title
   handle
+  vendor
+  description
   images (first: 10) {
     nodes {
       url
@@ -66,7 +68,6 @@ fragment productFragment on Product {
       id
       title
       availableForSale
-      quantityAvailable
       price {
         amount
         currencyCode

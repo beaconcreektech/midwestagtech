@@ -73,22 +73,25 @@ export const getProducts = async (options: {
 }) => {
   const { limit = 10, buyerIP } = options;
 
-  const data = await makeShopifyRequest(
-    ProductsQuery,
-    { first: limit },
-    buyerIP
-  );
-  const { products } = data;
+  try {
+    const data = await makeShopifyRequest(
+      ProductsQuery,
+      { first: limit },
+      buyerIP
+    );
+    const { products } = data;
 
-  if (!products) {
-    throw new Error("No products found");
+    if (!products?.edges) {
+      return [];
+    }
+
+    const productsList = products.edges.map((edge: any) => edge.node);
+    const ProductsResult = z.array(ProductResult);
+    return ProductsResult.parse(productsList);
+  } catch (error) {
+    console.error("Shopify getProducts failed:", error);
+    return [];
   }
-
-  const productsList = products.edges.map((edge: any) => edge.node);
-  const ProductsResult = z.array(ProductResult);
-  const parsedProducts = ProductsResult.parse(productsList);
-
-  return parsedProducts;
 };
 
 // Get a product by its handle (slug)
@@ -98,16 +101,18 @@ export const getProductByHandle = async (options: {
 }) => {
   const { handle, buyerIP } = options;
 
-  const data = await makeShopifyRequest(
-    ProductByHandleQuery,
-    { handle },
-    buyerIP
-  );
-  const { product } = data;
-
-  const parsedProduct = ProductResult.parse(product);
-
-  return parsedProduct;
+  try {
+    const data = await makeShopifyRequest(
+      ProductByHandleQuery,
+      { handle },
+      buyerIP
+    );
+    const { product } = data;
+    return ProductResult.parse(product ?? null);
+  } catch (error) {
+    console.error("Shopify getProductByHandle failed:", error);
+    return null;
+  }
 };
 
 export const getProductRecommendations = async (options: {
@@ -115,19 +120,21 @@ export const getProductRecommendations = async (options: {
   buyerIP: string;
 }) => {
   const { productId, buyerIP } = options;
-  const data = await makeShopifyRequest(
-    ProductRecommendationsQuery,
-    {
-      productId,
-    },
-    buyerIP
-  );
-  const { productRecommendations } = data;
-
-  const ProductsResult = z.array(ProductResult);
-  const parsedProducts = ProductsResult.parse(productRecommendations);
-
-  return parsedProducts;
+  try {
+    const data = await makeShopifyRequest(
+      ProductRecommendationsQuery,
+      {
+        productId,
+      },
+      buyerIP
+    );
+    const { productRecommendations } = data;
+    const ProductsResult = z.array(ProductResult);
+    return ProductsResult.parse(productRecommendations ?? []);
+  } catch (error) {
+    console.error("Shopify getProductRecommendations failed:", error);
+    return [];
+  }
 };
 
 // Create a cart and add a line item to it and return the cart object
