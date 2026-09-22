@@ -28,7 +28,7 @@ const pillars = [
 ];
 ---
 
-<BaseLayout title={site.name} description={site.description}>
+<BaseLayout title={site.fullTitle} description={site.defaultDescription}>
   <header class="relative overflow-hidden bg-forest-900">
     <div class="relative z-10 container grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-20">
       <div>
@@ -49,6 +49,9 @@ const pillars = [
           <a href="/support#talk" class="btn btn-primary">Let's Talk Ag Tech</a>
           <a href="/products" class="btn btn-secondary">Shop equipment</a>
         </div>
+        <p class="mt-6 text-sm text-white/70">
+          Based in {site.location}. Agricultural drones, ag robots, parts, and training for Nebraska farms.
+        </p>
       </div>
 
       <div class="relative">
@@ -96,6 +99,27 @@ const pillars = [
     heading="Equipment, parts, and accessories"
     intro="Live inventory from the shop. Browse drones, trailers, accessories, and service parts."
   />
+
+  <section class="border-y bg-white">
+    <div class="container py-12">
+      <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Nebraska</p>
+      <h2 class="mb-3 text-2xl font-extrabold tracking-tight">Ag tech from Creighton, Nebraska</h2>
+      <p class="mb-4 max-w-2xl text-gray-600">
+        Agricultural drones, ag robots, parts, and training. {site.serviceAreaNote}
+      </p>
+      <ul class="mb-4 flex flex-wrap gap-2">
+        <li class="rounded-full bg-forest-800 px-3 py-1 text-sm font-semibold text-white">{site.hometown}</li>
+        {
+          site.nearbyTowns.map((town) => (
+            <li class="rounded-full bg-forest-100 px-3 py-1 text-sm font-medium text-forest-800">{town}</li>
+          ))
+        }
+      </ul>
+      <a href="/service-area" class="text-sm font-semibold text-forest-700 underline">
+        Service area details →
+      </a>
+    </div>
+  </section>
 
   <section class="bg-forest-100">
     <div class="container py-20">

@@ -2,15 +2,27 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import CartDrawer from "../components/CartDrawer.svelte";
+import LocalBusinessJsonLd from "../components/LocalBusinessJsonLd.astro";
 import { site } from "../config/site";
 
 export interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
+  ogImage?: string;
 }
 
-const { title, description = site.description } = Astro.props as Props;
+const {
+  title,
+  description = site.defaultDescription,
+  noindex = false,
+  ogImage = "/hero-drone.jpg",
+} = Astro.props as Props;
+
 const pageTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+const origin = Astro.url.origin;
+const canonical = new URL(Astro.url.pathname, origin).href;
+const ogImageAbs = new URL(ogImage, origin).href;
 ---
 
 <html lang="en">
@@ -21,6 +33,25 @@ const pageTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow" />
+      )
+    }
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -30,6 +61,7 @@ const pageTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
     <style is:global>
       @import "../styles/global.css";
     </style>
+    {!noindex && <LocalBusinessJsonLd origin={origin} />}
   </head>
   <body>
     <CartDrawer client:idle />

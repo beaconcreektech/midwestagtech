@@ -3,14 +3,20 @@ export const catalogCategories = [
     slug: "drones",
     label: "Drones",
     navLabel: "Drones",
-    intro: "Agricultural drones and complete drone kits.",
+    intro: "Agricultural drones and complete drone kits for Nebraska operations.",
+    seoTitle: "Agricultural Drones in Nebraska",
+    seoDescription:
+      "Shop agricultural drones and drone kits from Midwest Ag Technologies in Creighton, Nebraska. Spray drones, parts support, and local training.",
     types: ["Drone", "Drone Kit"],
   },
   {
     slug: "trailers",
     label: "Trailers",
     navLabel: "Trailers",
-    intro: "Spray-ready and standalone trailers.",
+    intro: "Spray-ready and standalone trailers for ag drone work in Nebraska.",
+    seoTitle: "Ag Drone Trailers in Nebraska",
+    seoDescription:
+      "Agricultural drone trailers from Midwest Ag Technologies in Creighton, Nebraska. Call to confirm what’s in stock.",
     types: ["Trailer"],
   },
   {
@@ -18,6 +24,9 @@ export const catalogCategories = [
     label: "Drone & Trailer Accessories",
     navLabel: "Accessories",
     intro: "Chargers, covers, RTK, nozzles, trailer add-ons, and other field accessories.",
+    seoTitle: "Ag Drone Accessories in Nebraska",
+    seoDescription:
+      "Drone and trailer accessories for agricultural spray drones. Midwest Ag Technologies, Creighton, Nebraska.",
     types: [
       "Accessory",
       "Drone Accessories",
@@ -31,6 +40,9 @@ export const catalogCategories = [
     label: "Drone service parts",
     navLabel: "Service parts",
     intro: "Replacement parts for Agras airframes, generators, and chargers.",
+    seoTitle: "Ag Drone Service Parts in Nebraska",
+    seoDescription:
+      "Service parts for agricultural drones from Midwest Ag Technologies in Creighton, Nebraska.",
     types: [
       "Drone Parts",
       "T60X Parts",

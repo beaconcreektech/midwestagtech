@@ -1,0 +1,63 @@
+---
+import { site } from "../config/site";
+
+interface Props {
+  origin: string;
+}
+
+const { origin } = Astro.props;
+const primary = site.people[0];
+const pageUrl = origin.endsWith("/") ? origin.slice(0, -1) : origin;
+
+const data = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${pageUrl}/#business`,
+  name: site.name,
+  legalName: site.legalName,
+  description: site.defaultDescription,
+  url: pageUrl,
+  image: `${pageUrl}${site.logo}`,
+  logo: `${pageUrl}${site.logo}`,
+  telephone: primary?.phone,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: site.hometown,
+    addressRegion: site.region,
+    addressCountry: site.country,
+  },
+  areaServed: [
+    {
+      "@type": "AdministrativeArea",
+      name: site.regionName,
+    },
+    {
+      "@type": "City",
+      name: site.hometown,
+      containedInPlace: {
+        "@type": "State",
+        name: site.regionName,
+      },
+    },
+  ],
+  knowsAbout: [
+    "Agricultural drones",
+    "Spray drones",
+    "Agricultural robotics",
+    "Ag bots",
+    "Precision agriculture",
+    "Drone parts and service",
+    "Equipment training",
+  ],
+  makesOffer: site.services.map((name) => ({
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name,
+      areaServed: site.regionName,
+    },
+  })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

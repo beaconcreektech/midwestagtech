@@ -5,12 +5,13 @@ interface Props {
   title: string;
   label?: string;
   intro: string;
+  noindex?: boolean;
 }
 
-const { title, label, intro } = Astro.props;
+const { title, label, intro, noindex = false } = Astro.props;
 ---
 
-<BaseLayout title={title} description={intro}>
+<BaseLayout title={title} description={intro} noindex={noindex}>
   <section class="container py-16">
     <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">{label ?? title}</p>
     <h1 class="mb-4 text-4xl font-extrabold tracking-tight">{title}</h1>

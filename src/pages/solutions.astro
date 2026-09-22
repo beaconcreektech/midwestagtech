@@ -4,8 +4,9 @@ import { site } from "../config/site";
 ---
 
 <InnerLayout
-  title="Solutions"
-  intro="Ag technology + support for farmers and ag businesses throughout the Midwest."
+  title={`Ag Drones, Robotics & Support in ${site.regionName}`}
+  label="Solutions"
+  intro={`Agricultural drone sales, ag robots, parts, service, and training from ${site.name} in ${site.location}.`}
 >
   <ul class="grid gap-4 sm:grid-cols-2">
     {
@@ -19,6 +20,6 @@ import { site } from "../config/site";
   <p class="mt-10 max-w-2xl text-gray-600">
     Browse live inventory in the <a href="/products" class="font-semibold text-forest-700 underline">product catalog</a>,
     or <a href="/support#talk" class="font-semibold text-forest-700 underline">call us</a> to talk through what fits
-    your operation.
+    your operation. {site.serviceAreaNote}
   </p>
 </InnerLayout>
