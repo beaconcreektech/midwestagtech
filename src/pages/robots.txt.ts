@@ -1,7 +1,8 @@
 import type { APIRoute } from "astro";
+import { publicOrigin } from "../utils/origin";
 
-export const GET: APIRoute = ({ url }) => {
-  const origin = url.origin;
+export const GET: APIRoute = ({ request }) => {
+  const origin = publicOrigin(request);
   const body = `User-agent: *
 Allow: /
 

@@ -45,6 +45,7 @@ Add all three. Enable **Available at Buildtime** — Vite inlines `PUBLIC_*` (an
 | `PUBLIC_SHOPIFY_SHOP` | `something.myshopify.com` |
 | `PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Headless channel public token |
 | `PRIVATE_SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Headless channel private token |
+| `SITE_URL` | `https://midwestag.tech` — **runtime** (canonical, sitemap, JSON-LD). Without it, URLs become `https://localhost` and Google will not index. |
 
 Do not bake tokens into git. `.env` is dockerignored.
 

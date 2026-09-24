@@ -6,6 +6,7 @@ export const site = {
   description:
     "At Midwest Ag Technologies, we help farmers and ag businesses adopt new technology with confidence. From agricultural drones and robotics to service, parts, and training, we provide practical solutions built for real-world operations.",
   location: "Creighton, NE",
+  url: "https://midwestag.tech",
   hometown: "Creighton",
   region: "NE",
   regionName: "Nebraska",

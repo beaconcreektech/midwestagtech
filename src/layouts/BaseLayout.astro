@@ -4,6 +4,7 @@ import Footer from "../components/Footer.astro";
 import CartDrawer from "../components/CartDrawer.svelte";
 import LocalBusinessJsonLd from "../components/LocalBusinessJsonLd.astro";
 import { site } from "../config/site";
+import { publicOrigin } from "../utils/origin";
 
 export interface Props {
   title: string;
@@ -20,9 +21,9 @@ const {
 } = Astro.props as Props;
 
 const pageTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
-const origin = Astro.url.origin;
-const canonical = new URL(Astro.url.pathname, origin).href;
-const ogImageAbs = new URL(ogImage, origin).href;
+const origin = publicOrigin(Astro.request);
+const canonical = new URL(Astro.url.pathname, `${origin}/`).href;
+const ogImageAbs = new URL(ogImage, `${origin}/`).href;
 ---
 
 <html lang="en">

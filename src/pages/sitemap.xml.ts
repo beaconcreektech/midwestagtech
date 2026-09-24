@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { catalogCategories } from "../config/catalog";
+import { publicOrigin } from "../utils/origin";
 
 const staticPaths = [
   "/",
@@ -11,8 +12,8 @@ const staticPaths = [
   ...catalogCategories.map((category) => `/products/${category.slug}`),
 ];
 
-export const GET: APIRoute = ({ url }) => {
-  const origin = url.origin.replace(/\/$/, "");
+export const GET: APIRoute = ({ request }) => {
+  const origin = publicOrigin(request);
   const urls = staticPaths
     .map(
       (path) => `  <url>
