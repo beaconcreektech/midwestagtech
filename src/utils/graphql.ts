@@ -146,6 +146,22 @@ query ($first: Int!, $after: String) {
 ${LISTING_PRODUCT_FRAGMENT}
 `;
 
+export const SearchProductsQuery = `#graphql
+query ($first: Int!, $query: String!) {
+  products(first: $first, query: $query) {
+    pageInfo {
+      hasNextPage
+    }
+    edges {
+      node {
+        ...listingProductFragment
+      }
+    }
+  }
+}
+${LISTING_PRODUCT_FRAGMENT}
+`;
+
 export const ProductByHandleQuery = `#graphql
   query ($handle: String!) {
     product(handle: $handle) {

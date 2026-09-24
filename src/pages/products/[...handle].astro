@@ -9,7 +9,9 @@ import ProductImageGallery from "../../components/ProductImageGallery.astro";
 import ProductBreadcrumb from "../../components/ProductBreadcrumb.astro";
 import ProductInformations from "../../components/ProductInformations.astro";
 import ProductRecommendations from "../../components/ProductRecommendations.astro";
+import ProductJsonLd from "../../components/ProductJsonLd.astro";
 import { site } from "../../config/site";
+import { publicOrigin } from "../../utils/origin";
 
 const { handle } = Astro.params;
 const headers = Astro.request.headers;
@@ -32,6 +34,7 @@ setCache.short(Astro);
       title={product.title}
       description={`${product.description?.slice(0, 140) || product.title} — ${site.name} in ${site.location}.`}
     >
+      <ProductJsonLd origin={publicOrigin()} product={product} />
       <div class="container pt-6">
         <ProductBreadcrumb title={product.title} />
       </div>

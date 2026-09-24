@@ -74,6 +74,9 @@ Open `http://localhost:8080` — home, `/products`, a product PDP, add-to-cart. 
 Application → **Configuration** → **Domains**:
 
 - apex + `www` once the client domain is confirmed
+- Prefer **one** public host: `https://midwestag.tech`. The app 301s `www` → apex. Also add that redirect in Cloudflare if you can (Page Rule / Redirect Rule).
+
+After go-live: Google Search Console property `midwestag.tech` → submit `https://midwestag.tech/sitemap.xml` → URL inspection on `/`. Ranking for “nebraska drones” is not a deploy checkbox.
 
 Coolify issues Let’s Encrypt. If LE fails while Cloudflare is proxied: grey-cloud DNS first, then re-enable proxy.
 

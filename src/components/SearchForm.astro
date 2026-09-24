@@ -1,0 +1,33 @@
+---
+interface Props {
+  value?: string;
+  id?: string;
+  class?: string;
+}
+
+const { value = "", id = "product-search", class: className = "" } = Astro.props;
+---
+
+<form action="/search" method="get" class:list={["relative min-w-0", className]} role="search">
+  <label class="sr-only" for={id}>Search products</label>
+  <input
+    id={id}
+    name="q"
+    type="search"
+    value={value}
+    placeholder="Search products"
+    maxlength="80"
+    autocomplete="off"
+    class="h-10 w-full rounded-[10px] border border-gray-200 bg-gray-100 pr-10 pl-3 text-sm text-gray-900 outline-none placeholder:text-gray-500 focus:border-forest-600 focus:bg-white"
+  />
+  <button
+    type="submit"
+    class="absolute top-0 right-0 grid h-10 w-10 place-items-center text-gray-600 hover:text-forest-700"
+    aria-label="Search"
+  >
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"></circle>
+      <path d="M20 20l-3-3"></path>
+    </svg>
+  </button>
+</form>

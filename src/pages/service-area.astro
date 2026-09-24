@@ -4,24 +4,34 @@ import { site } from "../config/site";
 ---
 
 <InnerLayout
-  title={`Ag Drones & Robotics in ${site.regionName}`}
+  title={`Ag Drones & Robotics in ${site.serviceRegion}`}
   label="Service area"
-  intro={`Based in ${site.location}. Agricultural drones, ag robots, parts, service, and training for farms across Nebraska.`}
+  intro={`Based in ${site.location}. Agricultural drones, ag robots, parts, service, and training for farms in ${site.serviceRegion}.`}
 >
   <div class="max-w-2xl space-y-5 text-gray-600">
     <p>
       Midwest Ag Technologies is based in {site.hometown}, {site.regionName}. We sell and support agricultural drones,
-      robotics, parts, and training — practical gear for real operations, not a call center three states away.
+      robotics, parts, and training for growers in {site.serviceRegion} — practical gear for real operations, not a call
+      center three states away.
     </p>
     <p>
-      We work with growers throughout {site.regionName} and the Midwest. {site.serviceAreaNote}
+      Creighton sits on the Nebraska–South Dakota line, so we regularly work both sides. {site.serviceAreaNote}
     </p>
   </div>
 
   <h2 class="mt-12 mb-3 text-xl font-bold text-forest-800">Home base</h2>
   <p class="text-lg font-semibold text-forest-800">{site.location}</p>
 
-  <h2 class="mt-10 mb-3 text-xl font-bold text-forest-800">Nearby towns</h2>
+  <h2 class="mt-10 mb-3 text-xl font-bold text-forest-800">States we work</h2>
+  <ul class="flex flex-wrap gap-2">
+    {
+      site.servedStates.map((state) => (
+        <li class="rounded-full bg-forest-800 px-3 py-1 text-sm font-semibold text-white">{state}</li>
+      ))
+    }
+  </ul>
+
+  <h2 class="mt-10 mb-3 text-xl font-bold text-forest-800">Nearby Nebraska towns</h2>
   <p class="mb-4 max-w-2xl text-sm text-gray-500">{site.serviceAreaNote}</p>
   <ul class="flex flex-wrap gap-2">
     {
@@ -30,10 +40,15 @@ import { site } from "../config/site";
       ))
     }
   </ul>
+  <p class="mt-4 max-w-2xl text-sm text-gray-500">
+    South Dakota work is by call — we do not publish a guessed town list. If you farm in SD, call or text and we will
+    tell you whether we can get there.
+  </p>
 
   <h2 class="mt-10 mb-3 text-xl font-bold text-forest-800">What people search for</h2>
   <ul class="max-w-xl list-disc space-y-2 pl-5 text-gray-600">
     <li>Ag drones and spray drones in Nebraska</li>
+    <li>Ag drones and spray drones in South Dakota</li>
     <li>Agricultural robots / ag bots</li>
     <li>Drone parts, service, and equipment training</li>
   </ul>

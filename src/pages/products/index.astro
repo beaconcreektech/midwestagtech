@@ -14,14 +14,14 @@ setCache.long(Astro);
 ---
 
 <BaseLayout
-  title={`Ag Drones, Parts & Accessories in ${site.regionName}`}
-  description={`Shop agricultural drones, trailers, accessories, and service parts from ${site.name} in ${site.location}.`}
+  title={`Ag Drones, Parts & Accessories in ${site.serviceRegion}`}
+  description={`Shop agricultural drones, trailers, accessories, and service parts from ${site.name} in ${site.location}. Serving ${site.serviceRegion}.`}
 >
   <section class="container py-16">
     <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Catalog</p>
     <h1 class="mb-3 text-4xl font-extrabold tracking-tight">Shop Ag Equipment</h1>
     <p class="mb-8 max-w-2xl text-lg text-gray-500">
-      Agricultural drones, robotics, parts, and accessories from Creighton, Nebraska — practical equipment for real-world operations.
+      Agricultural drones, robotics, parts, and accessories from Creighton, Nebraska — for farms in {site.serviceRegion}.
     </p>
     <CatalogNav />
 

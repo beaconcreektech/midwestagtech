@@ -10,6 +10,7 @@ import {
   RemoveCartLinesMutation,
   ProductRecommendationsQuery,
   AllProductsQuery,
+  SearchProductsQuery,
 } from "./graphql";
 import {
   catalogCategories,
@@ -180,6 +181,42 @@ export const getCategoryPage = async (options: {
     totalPages,
     pageSize,
   };
+};
+
+export function sanitizeSearchQuery(raw: string): string {
+  return raw
+    .trim()
+    .slice(0, 80)
+    .replace(/[:"\\()]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export const searchProducts = async (options: {
+  query: string;
+  buyerIP: string;
+  limit?: number;
+}) => {
+  const query = sanitizeSearchQuery(options.query);
+  if (!query) return [];
+
+  try {
+    const data = await makeShopifyRequest(
+      SearchProductsQuery,
+      { first: options.limit ?? 48, query },
+      options.buyerIP
+    );
+    const connection = data.products;
+    if (!connection?.edges) return [];
+
+    const ProductsList = z.array(ProductResult);
+    return ProductsList.parse(
+      connection.edges.map((edge: { node: unknown }) => edge.node)
+    ).filter((product): product is ListedProduct => Boolean(product));
+  } catch (error) {
+    console.error("Shopify searchProducts failed:", error);
+    return [];
+  }
 };
 
 // Get a product by its handle (slug)

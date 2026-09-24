@@ -50,7 +50,7 @@ const pillars = [
           <a href="/products" class="btn btn-secondary">Shop equipment</a>
         </div>
         <p class="mt-6 text-sm text-white/70">
-          Based in {site.location}. Agricultural drones, ag robots, parts, and training for Nebraska farms.
+          Based in {site.location}. Agricultural drones, ag robots, parts, and training for {site.serviceRegion} farms.
         </p>
       </div>
 
@@ -102,12 +102,17 @@ const pillars = [
 
   <section class="border-y bg-white">
     <div class="container py-12">
-      <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Nebraska</p>
-      <h2 class="mb-3 text-2xl font-extrabold tracking-tight">Ag tech from Creighton, Nebraska</h2>
+      <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">{site.serviceRegion}</p>
+      <h2 class="mb-3 text-2xl font-extrabold tracking-tight">Ag tech from Creighton, serving {site.serviceRegion}</h2>
       <p class="mb-4 max-w-2xl text-gray-600">
-        Agricultural drones, ag robots, parts, and training. {site.serviceAreaNote}
+        Agricultural drones, ag robots, parts, and training on both sides of the state line. {site.serviceAreaNote}
       </p>
       <ul class="mb-4 flex flex-wrap gap-2">
+        {
+          site.servedStates.map((state) => (
+            <li class="rounded-full bg-forest-800 px-3 py-1 text-sm font-semibold text-white">{state}</li>
+          ))
+        }
         <li class="rounded-full bg-forest-800 px-3 py-1 text-sm font-semibold text-white">{site.hometown}</li>
         {
           site.nearbyTowns.map((town) => (

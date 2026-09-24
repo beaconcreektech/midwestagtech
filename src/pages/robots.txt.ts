@@ -5,6 +5,7 @@ export const GET: APIRoute = ({ request }) => {
   const origin = publicOrigin(request);
   const body = `User-agent: *
 Allow: /
+Disallow: /search
 
 Sitemap: ${origin}/sitemap.xml
 `;

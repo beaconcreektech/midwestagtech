@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Products from "../components/Products.astro";
+import SearchForm from "../components/SearchForm.astro";
+import CatalogNav from "../components/CatalogNav.astro";
+import { searchProducts, sanitizeSearchQuery } from "../utils/shopify";
+import { setCache } from "../utils/cache";
+
+const raw = Astro.url.searchParams.get("q") ?? "";
+const query = sanitizeSearchQuery(raw);
+const headers = Astro.request.headers;
+const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
+const products = query ? await searchProducts({ query, buyerIP: ip }) : [];
+
+setCache.short(Astro);
+
+const title = query ? `Search: ${query}` : "Search products";
+const emptyMessage = query
+  ? `No products matched “${query}”. Try a part number, model, or a shorter word.`
+  : "Type a product name, part number, or model to search the catalog.";
+---
+
+<BaseLayout
+  title={title}
+  description="Search agricultural drones, parts, and accessories from Midwest Ag Technologies."
+  noindex
+>
+  <section class="container pt-12 pb-4">
+    <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Catalog</p>
+    <h1 class="mb-3 text-4xl font-extrabold tracking-tight">Search products</h1>
+    <SearchForm value={query} id="search-page-q" class="mb-8 max-w-xl" />
+    <CatalogNav />
+    {
+      query ? (
+        <p class="mt-6 text-sm text-gray-500">
+          {products.length} {products.length === 1 ? "result" : "results"} for “{query}”
+        </p>
+      ) : (
+        <p class="mt-6 text-sm text-gray-500">Search live inventory from the shop.</p>
+      )
+    }
+  </section>
+
+  <Products compact hideHeader id="search-results" products={products} emptyMessage={emptyMessage} />
+</BaseLayout>

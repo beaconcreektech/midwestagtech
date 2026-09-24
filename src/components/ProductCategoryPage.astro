@@ -29,16 +29,16 @@ setCache.long(Astro);
 
 const emptyMessage =
   slug === "drones"
-    ? "No drones listed yet. They’ll appear here when Shopify products are typed Drone or Drone Kit."
+    ? "No drones in the catalog right now. Call to check what’s coming in."
     : slug === "trailers"
-      ? "No trailers listed yet. They’ll appear here when Shopify products are typed Trailer."
-      : "Nothing in this category yet.";
+      ? "No trailers in the catalog right now. Call to check what’s in stock."
+      : "Nothing in this category right now. Call to check stock.";
 ---
 
 <BaseLayout title={category.seoTitle} description={category.seoDescription}>
   <section class="container pt-12 pb-4">
     <p class="mb-2 text-sm font-bold tracking-[0.08em] text-forest-600 uppercase">Catalog</p>
-    <h1 class="mb-3 text-4xl font-extrabold tracking-tight">{category.label}</h1>
+    <h1 class="mb-3 text-4xl font-extrabold tracking-tight">{category.seoTitle}</h1>
     <p class="mb-8 max-w-2xl text-gray-500">{category.intro}</p>
     <CatalogNav current={slug} />
     <p class="mt-6 text-sm text-gray-500">

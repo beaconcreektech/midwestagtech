@@ -11,10 +11,12 @@ export const site = {
   region: "NE",
   regionName: "Nebraska",
   country: "US",
+  servedStates: ["Nebraska", "South Dakota"],
+  serviceRegion: "Nebraska and South Dakota",
   fullTitle:
-    "Midwest Ag Technologies | Ag Drones, Robotics & Ag Tech in Creighton, Nebraska",
+    "Midwest Ag Technologies | Ag Drones & Robotics in Nebraska and South Dakota",
   defaultDescription:
-    "Agricultural drones, ag robots, parts, service, and equipment training from Midwest Ag Technologies in Creighton, Nebraska. Practical solutions for Midwest farms — call to confirm travel.",
+    "Agricultural drones, ag robots, parts, service, and equipment training from Midwest Ag Technologies in Creighton, Nebraska. We work with growers in Nebraska and South Dakota — call to confirm travel.",
   nearbyTowns: [
     "Bloomfield",
     "Hartington",
